@@ -24,4 +24,7 @@ with open(sample_file,"r") as file:
         input_file = input_dir+prefix_dir+"_"+line+"/"+line+"_"+prefix_file+".ffn"
         output_file = line+"_16S_sequences.fasta"
         for record in SeqIO.parse(input_file,"fasta"):
-                                                                                                           1,1           Top
+            if pattern in record.description:
+                record.id = line+"_"+record.id
+                record.description = line+"_"+record.description
+                SeqIO.write(record,open(output_file,"a"),"fasta")
